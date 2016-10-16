@@ -1,2 +1,3 @@
-# microservices-with-swarm-101
+# Microservices with Docker Swarm 101
+
 Building a microservice system with Docker Swarm 101
