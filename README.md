@@ -13,3 +13,10 @@ docker service create --name munich --network swarm101 munich
 docker service create --name nyc --network swarm101 nyc
 docker service create --name gateway --network swarm101 -p 8000:8000 gateway
 ```
+
+## Ending a Swarm
+
+```
+docker swarm leave --force
+docker network rm swarm101
+```
