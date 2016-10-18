@@ -14,9 +14,17 @@ docker service create --name nyc --network swarm101 nyc
 docker service create --name gateway --network swarm101 -p 8000:8000 gateway
 ```
 
+### Using Fabric
+
+`fab localhost setup`
+
 ## Ending a Swarm
 
 ```
 docker swarm leave --force
 docker network rm swarm101
 ```
+
+### Using Fabric
+
+`fab localhost swarm_leave`
