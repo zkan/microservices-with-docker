@@ -18,6 +18,10 @@ def index(request):
     data = response.json()
     context['munich'] = data['celsius']
 
+    response = requests.get('http://nyc:9292/')
+    data = response.json()
+    context['nyc'] = data['celsius']
+
     return render(
         request,
         'index.html',
