@@ -1,3 +1,5 @@
+import time
+
 from fabric.api import (
     local,
     settings,
@@ -7,6 +9,33 @@ from fabric.state import env
 
 
 SWARM101_NETWORK = 'swarm101'
+SERVICES = [
+    (
+        'bangkok',
+        'bangkok/Dockerfile',
+        'bangkok'
+    ),
+    (
+        'munich',
+        'munich/Dockerfile',
+        'munich'
+    ),
+    (
+        'tokyo',
+        'tokyo/Dockerfile',
+        'tokyo'
+    ),
+    (
+        'nyc',
+        'nyc/Dockerfile',
+        'nyc'
+    ),
+    (
+        'gateway',
+        'gateway/Dockerfile',
+        'gateway'
+    ),
+]
 
 
 @task
@@ -32,34 +61,7 @@ def swarm_leave():
 
 @task
 def build_images():
-    services = [
-        (
-            'bangkok',
-            'bangkok/Dockerfile',
-            'bangkok'
-        ),
-        (
-            'munich',
-            'munich/Dockerfile',
-            'munich'
-        ),
-        (
-            'tokyo',
-            'tokyo/Dockerfile',
-            'tokyo'
-        ),
-        (
-            'nyc',
-            'nyc/Dockerfile',
-            'nyc'
-        ),
-        (
-            'gateway',
-            'gateway/Dockerfile',
-            'gateway'
-        ),
-    ]
-    for name, dockerfile, path in services:
+    for name, dockerfile, path in SERVICES:
         command = 'docker build -t ' + name + ':unstable -f ' + \
             dockerfile + ' ' + path
         env.run(command)
@@ -67,22 +69,14 @@ def build_images():
 
 @task
 def create_services(tag='unstable'):
-    services = [
-        'bangkok',
-        'munich',
-        'tokyo',
-        'nyc',
-    ]
-    for service in services:
+    for name, _, _ in SERVICES:
         command = 'docker service create --name ' + \
-            service + ' --network ' + SWARM101_NETWORK + \
-            ' ' + service + ':' + tag
+            name + ' --network ' + SWARM101_NETWORK + \
+            ' ' + name + ':' + tag
         env.run(command)
 
-    service = 'gateway'
-    command = 'docker service create --name ' + \
-        service + ' --network ' + SWARM101_NETWORK + \
-        ' -p 8000:8000 ' + service + ':' + tag
+    time.sleep(5)
+    command = 'docker service update --publish-add 8000:8000 gateway'
     env.run(command)
 
 
