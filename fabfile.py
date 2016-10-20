@@ -31,9 +31,9 @@ SERVICES = [
         'nyc'
     ),
     (
-        'gateway',
-        'gateway/Dockerfile',
-        'gateway'
+        'front_gateway',
+        'front_gateway/Dockerfile',
+        'front_gateway'
     ),
 ]
 
@@ -76,7 +76,7 @@ def create_services(tag='unstable'):
         env.run(command)
 
     time.sleep(5)
-    command = 'docker service update --publish-add 8000:8000 gateway'
+    command = 'docker service update --publish-add 8000:8000 front_gateway'
     env.run(command)
 
 
