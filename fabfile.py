@@ -70,8 +70,8 @@ def build_images():
 @task
 def create_services(tag='unstable'):
     for name, _, _ in SERVICES:
-        command = 'docker service create --name ' + \
-            name + ' --network ' + SWARM101_NETWORK + \
+        command = 'docker service create --replicas 2 ' + \
+            '--name ' + name + ' --network ' + SWARM101_NETWORK + \
             ' ' + name + ':' + tag
         env.run(command)
 
