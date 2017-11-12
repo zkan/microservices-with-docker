@@ -63,6 +63,13 @@ def build_images():
 
 
 @task
+def push():
+    for name, _, _ in SERVICES:
+        command = f'docker push {name}'
+        env.run(command)
+
+
+@task
 def deploy():
     command = 'docker stack deploy swarm101 -c swarm/docker-compose.yml'
     env.run(command)
