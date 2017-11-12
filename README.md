@@ -1,6 +1,6 @@
-# Microservices with Docker Swarm 101
+# Microservices with Docker 101
 
-Building a microservice system with Docker Swarm 101
+Building a microservice system with Docker 101
 
 ## Starting a Swarm
 
