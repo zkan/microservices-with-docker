@@ -2,23 +2,30 @@
 
 Building a microservice system with Docker 101
 
-## Starting a Swarm
+## Working with Docker Swarm
+
+
+### Creating a Cluster
 
 ```
 docker swarm init
 docker stack deploy swarm101 -c swarm/docker-compose.yml
 ```
 
-### Using Fabric
+or
 
-`fab localhost setup`
+```
+fab localhost setup
+```
 
-## Ending a Swarm
+### Terminating a Cluster
 
 ```
 docker swarm leave --force
 ```
 
-### Using Fabric
+or
 
-`fab localhost swarm_leave`
+```
+fab localhost swarm_leave
+```
