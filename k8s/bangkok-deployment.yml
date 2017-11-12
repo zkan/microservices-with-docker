@@ -1,0 +1,19 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: bangkok
+  labels:
+    name: bangkok
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: bangkok
+    spec:
+      containers:
+        - name: bangkok
+          image: zkan/bangkok:latest
+          ports:
+            - containerPort: 8000
+              protocol: TCP

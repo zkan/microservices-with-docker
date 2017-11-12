@@ -1,0 +1,16 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: tokyo
+  labels:
+    name: tokyo
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        name: tokyo
+    spec:
+      containers:
+        - name: tokyo
+          image: zkan/tokyo:latest

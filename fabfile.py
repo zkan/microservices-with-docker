@@ -80,3 +80,41 @@ def setup_swarm():
     swarm_init()
     build_images()
     deploy()
+
+
+def deploy_k8s():
+    services = [
+        'bangkok',
+        'tokyo',
+        'nyc',
+        'munich',
+        'front-gateway',
+    ]
+    for each in services:
+        command = f'kubectl create -f k8s/{each}-deployment.yml'
+        env.run(command)
+        command = f'kubectl create -f k8s/{each}-svc.yml'
+        env.run(command)
+
+
+@task
+def delete_k8s():
+    services = [
+        'bangkok',
+        'tokyo',
+        'nyc',
+        'munich',
+        'front-gateway',
+    ]
+    for each in services:
+        command = f'kubectl delete -f k8s/{each}-deployment.yml'
+        env.run(command)
+        command = f'kubectl delete -f k8s/{each}-svc.yml'
+        env.run(command)
+
+
+@task
+def setup_k8s():
+    build_images()
+    push()
+    deploy_k8s()

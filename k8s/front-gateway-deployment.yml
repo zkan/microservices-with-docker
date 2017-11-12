@@ -1,0 +1,19 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: front-gateway
+  labels:
+    name: front-gateway
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: front-gateway
+    spec:
+      containers:
+        - name: front-gateway
+          image: zkan/front_gateway:latest
+          ports:
+            - containerPort: 8000
+              protocol: TCP

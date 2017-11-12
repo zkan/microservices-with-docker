@@ -1,0 +1,16 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: munich
+  labels:
+    name: munich
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        name: munich
+    spec:
+      containers:
+        - name: munich
+          image: zkan/munich:latest
