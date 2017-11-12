@@ -49,7 +49,7 @@ def swarm_init():
 
 
 @task
-def swarm_leave():
+def leave_swarm():
     with settings(warn_only=True):
         env.run('docker swarm leave --force')
 
@@ -76,7 +76,7 @@ def deploy():
 
 
 @task
-def setup():
+def setup_swarm():
     swarm_init()
     build_images()
     deploy()

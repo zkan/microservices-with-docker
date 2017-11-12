@@ -15,7 +15,7 @@ docker stack deploy swarm101 -c swarm/docker-compose.yml
 or
 
 ```
-fab localhost setup
+fab localhost setup_swarm
 ```
 
 ### Terminating a Cluster
@@ -27,5 +27,5 @@ docker swarm leave --force
 or
 
 ```
-fab localhost swarm_leave
+fab localhost leave_swarm
 ```
