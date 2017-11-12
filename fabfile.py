@@ -11,27 +11,27 @@ from fabric.state import env
 SWARM101_NETWORK = 'swarm101'
 SERVICES = [
     (
-        'bangkok',
+        'zkan/bangkok',
         'bangkok/Dockerfile',
         'bangkok'
     ),
     (
-        'munich',
+        'zkan/munich',
         'munich/Dockerfile',
         'munich'
     ),
     (
-        'tokyo',
+        'zkan/tokyo',
         'tokyo/Dockerfile',
         'tokyo'
     ),
     (
-        'nyc',
+        'zkan/nyc',
         'nyc/Dockerfile',
         'nyc'
     ),
     (
-        'front_gateway',
+        'zkan/front_gateway',
         'front_gateway/Dockerfile',
         'front_gateway'
     ),
@@ -62,21 +62,14 @@ def swarm_leave():
 @task
 def build_images():
     for name, dockerfile, path in SERVICES:
-        command = 'docker build -t ' + name + ':unstable -f ' + \
+        command = 'docker build -t ' + name + ':latest -f ' + \
             dockerfile + ' ' + path
         env.run(command)
 
 
 @task
-def create_services(tag='unstable'):
-    for name, _, _ in SERVICES:
-        command = 'docker service create --replicas 2 ' + \
-            '--name ' + name + ' --network ' + SWARM101_NETWORK + \
-            ' ' + name + ':' + tag
-        env.run(command)
-
-    time.sleep(5)
-    command = 'docker service update --publish-add 8000:8000 front_gateway'
+def deploy():
+    command = 'docker stack deploy swarm101 -c swarm/docker-compose.yml'
     env.run(command)
 
 
@@ -84,4 +77,4 @@ def create_services(tag='unstable'):
 def setup():
     swarm_init()
     build_images()
-    create_services(tag='unstable')
+    deploy()

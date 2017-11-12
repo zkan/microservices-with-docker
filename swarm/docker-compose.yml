@@ -1,0 +1,47 @@
+version: '3.1'
+
+services:
+  bangkok:
+    image: zkan/bangkok:latest
+    deploy:
+      replicas: 2
+    networks:
+      - swarm101
+
+  munich:
+    image: zkan/munich:latest
+    deploy:
+      replicas: 2
+    networks:
+      - swarm101
+
+  tokyo:
+    image: zkan/tokyo:latest
+    deploy:
+      replicas: 1
+    networks:
+      - swarm101
+
+  nyc:
+    image: zkan/nyc:latest
+    deploy:
+      replicas: 1
+    networks:
+      - swarm101
+
+  front_gateway:
+    image: zkan/front_gateway:latest
+    deploy:
+      replicas: 1
+    ports:
+      - 8000:8000
+    networks:
+      - swarm101
+
+networks:
+  swarm101:
+    driver: overlay
+    ipam:
+      config:
+        -
+          subnet: 192.168.0.0/24
