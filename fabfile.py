@@ -12,28 +12,28 @@ SWARM101_NETWORK = 'swarm101'
 SERVICES = [
     (
         'zkan/bangkok',
-        'bangkok/Dockerfile',
-        'bangkok'
+        'services/bangkok/Dockerfile',
+        'services/bangkok'
     ),
     (
         'zkan/munich',
-        'munich/Dockerfile',
-        'munich'
+        'services/munich/Dockerfile',
+        'services/munich'
     ),
     (
         'zkan/tokyo',
-        'tokyo/Dockerfile',
-        'tokyo'
+        'services/tokyo/Dockerfile',
+        'services/tokyo'
     ),
     (
         'zkan/nyc',
-        'nyc/Dockerfile',
-        'nyc'
+        'services/nyc/Dockerfile',
+        'services/nyc'
     ),
     (
         'zkan/front_gateway',
-        'front_gateway/Dockerfile',
-        'front_gateway'
+        'services/front_gateway/Dockerfile',
+        'services/front_gateway'
     ),
 ]
 
@@ -44,19 +44,14 @@ def localhost():
 
 
 @task
-def swarm_init(subnet='192.168.0.0/24'):
+def swarm_init():
     env.run('docker swarm init')
-
-    command = 'docker network create -d overlay ' + \
-        '--subnet=' + subnet + ' ' + SWARM101_NETWORK
-    env.run(command)
 
 
 @task
 def swarm_leave():
     with settings(warn_only=True):
         env.run('docker swarm leave --force')
-        env.run('docker network rm ' + SWARM101_NETWORK)
 
 
 @task
