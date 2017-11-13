@@ -49,12 +49,6 @@ kubectl create -f k8s/tokyo-deployment.yml
 kubectl create -f k8s/nyc-deployment.yml
 kubectl create -f k8s/munich-deployment.yml
 kubectl create -f k8s/front-gateway-deployment.yml
-
-kubectl create -f k8s/bangkok-svc.yml
-kubectl create -f k8s/tokyo-svc.yml
-kubectl create -f k8s/nyc-svc.yml
-kubectl create -f k8s/munich-svc.yml
-kubectl create -f k8s/front-gateway-svc.yml
 ```
 
 or
@@ -71,12 +65,6 @@ kubectl delete -f k8s/tokyo-deployment.yml
 kubectl delete -f k8s/nyc-deployment.yml
 kubectl delete -f k8s/munich-deployment.yml
 kubectl delete -f k8s/front-gateway-deployment.yml
-
-kubectl delete -f k8s/bangkok-svc.yml
-kubectl delete -f k8s/tokyo-svc.yml
-kubectl delete -f k8s/nyc-svc.yml
-kubectl delete -f k8s/munich-svc.yml
-kubectl delete -f k8s/front-gateway-svc.yml
 ```
 
 or

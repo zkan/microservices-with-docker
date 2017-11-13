@@ -82,7 +82,7 @@ def setup_swarm():
     deploy()
 
 
-def deploy_k8s():
+def deploy_k8s(create=True):
     services = [
         'bangkok',
         'tokyo',
@@ -90,26 +90,13 @@ def deploy_k8s():
         'munich',
         'front-gateway',
     ]
-    for each in services:
-        command = f'kubectl create -f k8s/{each}-deployment.yml'
-        env.run(command)
-        command = f'kubectl create -f k8s/{each}-svc.yml'
-        env.run(command)
+    if create:
+        action = 'create'
+    else:
+        action = 'delete'
 
-
-@task
-def delete_k8s():
-    services = [
-        'bangkok',
-        'tokyo',
-        'nyc',
-        'munich',
-        'front-gateway',
-    ]
     for each in services:
-        command = f'kubectl delete -f k8s/{each}-deployment.yml'
-        env.run(command)
-        command = f'kubectl delete -f k8s/{each}-svc.yml'
+        command = f'kubectl {action} -f k8s/{each}-deployment.yml'
         env.run(command)
 
 
@@ -118,3 +105,8 @@ def setup_k8s():
     build_images()
     push()
     deploy_k8s()
+
+
+@task
+def delete_k8s():
+    deploy_k8s(create=False)
