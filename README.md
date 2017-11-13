@@ -2,6 +2,9 @@
 
 Building a microservice system with Docker 101
 
+* [Working with Docker Swarm](#working-with-docker-swarm)
+* [Working with Kubernetes (k8s)](#working-with-kubernetes-k8s)
+
 ## Working with Docker Swarm
 
 After we set up the microservices with Docker Swarm, we can access http://localhost:8000.
